@@ -1,5 +1,13 @@
 ---
-lanterne-rouge:
-  rss: https://anchor.fm/s/1311c8b8/podcast/rss
-duncd-on:
-  rss: https://feeds.simplecast.com/JGGpY1xu
+general:
+  podcast_directory: ~/Podcasts
+
+podcasts:
+  lanterne-rouge:
+    rss: https://anchor.fm/s/1311c8b8/podcast/rss
+  duncd-on:
+    rss: https://feeds.simplecast.com/JGGpY1xu
+  late-night-linux:
+    rss: https://latenightlinux.com/feed/mp3
+  arseblog:
+    rss: http://rss.acast.com/arseblog
