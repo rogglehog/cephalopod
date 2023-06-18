@@ -4,7 +4,7 @@ from db import Podcast, Episode
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from os.path import expanduser, join
+from os.path import expanduser, join, exists
 from os import listdir, makedirs
 from shutil import rmtree
 from feedparser import parse
@@ -82,6 +82,20 @@ def prune_directories():
             rmtree(join(pod_dir,podcast))
             print('Removed directory for',podcast)
 
+# check path to downloaded episodes
+# null databse entries if user has removed eps manually
+def check_local():
+    db = session.query(Episode).all()
+    for episode in db:
+        pth = episode.path
+        if pth.isnot(None):
+            if exists(pth):
+                pass
+            else:
+                update = session.query(Episode).filter_by(id = episode.id).first()
+                update.path = None
+                session.commit()
+
 def is_duplicate(title, time, url):
     existing_episode = session.query(Episode).filter_by(
         title=title,
@@ -109,7 +123,6 @@ def parse_feeds():
                 time = time,
                 content_url = url,
                 podcast_id = session.query(Podcast).filter_by(name = podcast.name).first().id,
-                local = False
             )
 
             if is_duplicate(title, time, url):

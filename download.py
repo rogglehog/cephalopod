@@ -24,7 +24,9 @@ def download(age):
     db_eps = session.query(Episode)
     approved_eps = []
     for ep in db_eps:
-        downloaded = session.query(Episode).filter_by(id = ep.id).first().local
+        downloaded = session.query(Episode).filter(
+            Episode.path.isnot(None)
+        ).all()
         if not downloaded:
             if ep.time > (time() - (age * 86400)):
                 approved_eps.append(ep)
@@ -38,7 +40,7 @@ def download(age):
         date = strftime(date_format, localtime(ep.time))
         podcast = ep.podcast.name
 
-        ep_name = f'{date}.{title}.mp3'
+        ep_name = f'{title}.mp3'
 
         pth = join(pod_dir,ep.podcast.name,ep_name)
         with open(pth, 'wb') as w:
@@ -47,7 +49,7 @@ def download(age):
         print('Downloaded', title, 'from', podcast, 'to', pth)
 
         update = session.query(Episode).filter_by(id = ep.id).first()
-        update.local = True
+        update.path = pth
         session.commit()
 
 download(7)

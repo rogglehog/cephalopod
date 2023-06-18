@@ -16,7 +16,7 @@ class Episode(Base):
     title = Column(String(200))
     time = Column(Integer)
     content_url = Column(String(200))
-    local = Column(Boolean)
+    path = Column(String(200))
     
     podcast_id = Column(Integer, ForeignKey('podcasts.id'))
     podcast = relationship(Podcast, backref='episodes')
