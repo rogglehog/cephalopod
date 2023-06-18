@@ -1,13 +1,21 @@
 ---
 general:
   podcast_directory: ~/Podcasts
+  prune: True
+  prune_age: 7
+  date_format: %d%m%Y
+  episode_format: {date}-{title}
 
 podcasts:
-  lanterne-rouge:
-    rss: https://anchor.fm/s/1311c8b8/podcast/rss
   duncd-on:
     rss: https://feeds.simplecast.com/JGGpY1xu
   late-night-linux:
     rss: https://latenightlinux.com/feed/mp3
   arseblog:
     rss: http://rss.acast.com/arseblog
+  linux-unplugged:
+    rss: https://feeds.fireside.fm/linuxunplugged/rss
+  desert-island-discs:
+    rss: https://podcasts.files.bbci.co.uk/b006qnmr.rss
+  coder-radio:
+    rss: https://coder.show/rss

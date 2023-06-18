@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 
@@ -16,6 +16,7 @@ class Episode(Base):
     title = Column(String(200))
     time = Column(Integer)
     content_url = Column(String(200))
+    local = Column(Boolean)
     
     podcast_id = Column(Integer, ForeignKey('podcasts.id'))
     podcast = relationship(Podcast, backref='episodes')
