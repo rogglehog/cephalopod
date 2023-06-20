@@ -12,11 +12,11 @@ session = db_session()
 def sort_by_age(x):
     return x.time
     
-def pretty_list(age):
+def pretty_list(args):
     db_eps = session.query(Episode)
     approved_eps = []
     for ep in db_eps:
-        if ep.time > (time() - (age * 86400)):
+        if ep.time > (time() - (args.a * 86400)):
             approved_eps.append(ep)
     approved_eps.sort(key=sort_by_age,reverse=True)
             
@@ -25,5 +25,3 @@ def pretty_list(age):
         date = strftime('%d/%m/%Y', localtime(ep.time))
         podcast = ep.podcast.name
         print(f'{title} ~ {podcast} ~ {date}')
-
-pretty_list(4)

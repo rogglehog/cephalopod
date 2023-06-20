@@ -2,12 +2,19 @@ from parse import parse_feeds
 from dl import download
 from prune import prune_eps
 from list import pretty_list
+from config import load_config, test_config
 
 from argparse import ArgumentParser
 
 # load config
 # parse args (argparse module)
 # call relevant functions
+
+config = load_config()
+
+list_age = test_config('list_age')
+download_age = test_config('download_age')
+prune_age = test_config('prune_age')
 
 parser = ArgumentParser(
     prog='cephalopod',
@@ -25,7 +32,7 @@ list_parser = subparsers.add_parser('list')
 list_parser.add_argument(
     '-a',
     type=int,
-    default=7
+    default=list_age
 )
 list_parser.set_defaults(func=pretty_list)
 
@@ -34,7 +41,7 @@ dl_parser = subparsers.add_parser('download')
 dl_parser.add_argument(
     '-a',
     type=int,
-    default=7
+    default=download_age
 )
 dl_parser.set_defaults(func=download)
 
@@ -43,9 +50,10 @@ prune_parser = subparsers.add_parser('prune')
 prune_parser.add_argument(
     '-a',
     type=int,
-    default=7
+    default=prune_age
 )
 prune_parser.set_defaults(func=prune_eps)
+
 
 args = parser.parse_args()
 args.func(args)

@@ -17,3 +17,10 @@ def load_config():
         copyfile('./doc/config.yaml', config_path)
         with open(config_path, 'r') as config:
             return safe_load(config)
+
+def test_config(key):
+    config = load_config()
+    try:
+        return config['general'][key]
+    except KeyError:
+        print('Problem reading config')

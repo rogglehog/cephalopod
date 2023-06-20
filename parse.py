@@ -17,7 +17,7 @@ def is_duplicate(title, time, url):
 # parse feeds
 # check if duplicate
 # write episode info to db
-def parse_feeds():
+def parse_feeds(args):
     podcasts = session.query(Podcast).all()
     for podcast in podcasts:
         f = parse(podcast.rss_feed)
@@ -40,5 +40,3 @@ def parse_feeds():
                 session.add(new_episode)
                 session.commit()
                 print('Added', episode.title, 'from', podcast.name, 'to database.')
-
-parse_feeds()

@@ -88,12 +88,3 @@ def check_local():
                 update = session.query(Episode).filter_by(id = episode.id).first()
                 update.path = None
                 session.commit()
-
-
-db_import()
-db_prune()
-create_directories()
-prune_directories()
-            
-
-        

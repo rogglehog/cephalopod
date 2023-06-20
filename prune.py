@@ -10,12 +10,12 @@ from time import time
 
 session = db_session()
 
-def prune(age):
+def prune_eps(args):
     db_eps = session.query(Episode)
     prune_eps = []
     for ep in db_eps:
         if ep.path != None:
-            if ep.time < (time() - (age * 86400)):
+            if ep.time < (time() - (args.a * 86400)):
                 prune_eps.append(ep)
 
     for ep in prune_eps:
@@ -31,9 +31,6 @@ def prune(age):
         session.commit()
 
         print('Deleted', ep.title)
-
-prune(7)
-
     
         
     
