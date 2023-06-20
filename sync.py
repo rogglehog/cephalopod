@@ -1,22 +1,15 @@
 from config import load_config
-from db import Podcast, Episode
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from db import Podcast, Episode, db_session
 
 from os.path import expanduser, join, exists
 from os import listdir, makedirs
 from shutil import rmtree
-from feedparser import parse
-from time import time, mktime, strftime, localtime
 
 # three sources of truth for podcasts:
 # db, config, and directory tree
 # this tries to keep them in sync
 
-engine = create_engine('sqlite:///podcasts.db')
-Session = sessionmaker(bind=engine)
-session = Session()
+session = db_session()
 
 config = load_config()
 pod_dir = expanduser(config['general']['podcast_directory'])
@@ -96,47 +89,11 @@ def check_local():
                 update.path = None
                 session.commit()
 
-def is_duplicate(title, time, url):
-    existing_episode = session.query(Episode).filter_by(
-        title=title,
-        time=time,
-        content_url=url
-    ).first()
-    return existing_episode is not None
-
-# get rss feeds from db
-# parse feeds
-# check if duplicate
-# write episode info to db
-def parse_feeds():
-    podcasts = session.query(Podcast).all()
-    for podcast in podcasts:
-        f = parse(podcast.rss_feed)
-        for episode in f.entries:
-
-            title = episode.title
-            time = mktime(episode.published_parsed)
-            url = episode.enclosures[0].href
-
-            new_episode = Episode(
-                title = title,
-                time = time,
-                content_url = url,
-                podcast_id = session.query(Podcast).filter_by(name = podcast.name).first().id,
-            )
-
-            if is_duplicate(title, time, url):
-                pass
-            else:
-                session.add(new_episode)
-                session.commit()
-                print('Added', episode.title, 'from', podcast.name, 'to database.')
 
 db_import()
 db_prune()
 create_directories()
 prune_directories()
-parse_feeds()
             
 
         

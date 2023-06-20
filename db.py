@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship, declarative_base, sessionmaker
 from sqlalchemy import create_engine
 
 Base = declarative_base()
@@ -24,3 +24,10 @@ class Episode(Base):
 # Create an engine and connect to the database
 engine = create_engine('sqlite:///podcasts.db')
 Base.metadata.create_all(engine)
+
+def db_session():
+    engine = create_engine('sqlite:///podcasts.db')
+    Session = sessionmaker(bind=engine)
+    return Session()
+
+    

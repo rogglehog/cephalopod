@@ -1,13 +1,8 @@
-from db import Episode
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from db import Episode, db_session
 
 from time import time, strftime, localtime
 
-engine = create_engine('sqlite:///podcasts.db')
-Session = sessionmaker(bind=engine)
-session = Session()
+session = db_session()
 
 # query db for episodes
 # filter for age (in days)

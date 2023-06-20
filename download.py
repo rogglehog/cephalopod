@@ -1,20 +1,14 @@
 from config import load_config
-from db import Podcast, Episode
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from db import Podcast, Episode, db_session
 
 from requests import get
 from os.path import expanduser, join
 from time import time, strftime, localtime
 
-engine = create_engine('sqlite:///podcasts.db')
-Session = sessionmaker(bind=engine)
-session = Session()
+session = db_session()
 
 config = load_config()
 pod_dir = expanduser(config['general']['podcast_directory'])
-ep_format = config['general']['episode_format']
 date_format = config['general']['date_format']
 
 def sort_by_age(x):
@@ -24,10 +18,9 @@ def download(age):
     db_eps = session.query(Episode)
     approved_eps = []
     for ep in db_eps:
-        downloaded = session.query(Episode).filter(
-            Episode.path.isnot(None)
-        ).all()
-        if not downloaded:
+        # check if filesystem path exists in db
+        if ep.path == None:
+            # filter old eps
             if ep.time > (time() - (age * 86400)):
                 approved_eps.append(ep)
         approved_eps.sort(key=sort_by_age,reverse=True)
@@ -46,10 +39,11 @@ def download(age):
         with open(pth, 'wb') as w:
             w.write(dl.content)
 
-        print('Downloaded', title, 'from', podcast, 'to', pth)
-
+        # add ep path to db
         update = session.query(Episode).filter_by(id = ep.id).first()
         update.path = pth
         session.commit()
+        
+        print('Downloaded', title, 'from', podcast, 'to', pth)
 
 download(7)
