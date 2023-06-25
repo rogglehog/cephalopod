@@ -3,7 +3,7 @@ from os.path import expanduser
 from pathlib import Path
 from shutil import copyfile
 
-config_path = expanduser('~/.config/podcast_manager/config.yaml')
+config_path = expanduser('./doc/config.yaml')
 
 # try to read config file
 # copy default if it doesnt exist
@@ -23,4 +23,4 @@ def test_config(key):
     try:
         return config['general'][key]
     except KeyError:
-        print('Problem reading config')
+        print('Problem reading config.', key, 'missing')

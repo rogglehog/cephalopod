@@ -1,7 +1,7 @@
-from parse import parse_feeds
+from sync import update
 from dl import download
 from prune import prune_eps
-from list import pretty_list
+from stream import pretty_list
 from config import load_config, test_config
 
 from argparse import ArgumentParser
@@ -25,10 +25,10 @@ subparsers = parser.add_subparsers()
 
 # update
 update_parser = subparsers.add_parser('update')
-update_parser.set_defaults(func=parse_feeds)
+update_parser.set_defaults(func=update)
 
-# list
-list_parser = subparsers.add_parser('list')
+# stream
+list_parser = subparsers.add_parser('stream')
 list_parser.add_argument(
     '-a',
     type=int,

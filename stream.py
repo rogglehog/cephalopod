@@ -11,7 +11,7 @@ session = db_session()
 
 def sort_by_age(x):
     return x.time
-    
+
 def pretty_list(args):
     db_eps = session.query(Episode)
     approved_eps = []
@@ -19,7 +19,7 @@ def pretty_list(args):
         if ep.time > (time() - (args.a * 86400)):
             approved_eps.append(ep)
     approved_eps.sort(key=sort_by_age,reverse=True)
-            
+
     for ep in approved_eps:
         title = ep.title
         date = strftime('%d/%m/%Y', localtime(ep.time))

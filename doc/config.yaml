@@ -1,10 +1,9 @@
 ---
 general:
-  podcast_directory: ~/Podcasts
-  prune: True
-  prune_age: 7
-  date_format: %d%m%Y
-  episode_format: {date}-{title}
+  podcast_directory: ~/Podcasts # directory to store podcasts
+  download_age: 7 # age in days of podcasts to download
+  list_age: 7 # age in days of podcasts to list
+  prune_age: 7 # remove podcasts older than this in days
 
 podcasts:
   duncd-on:

@@ -29,5 +29,3 @@ def db_session():
     engine = create_engine('sqlite:///podcasts.db')
     Session = sessionmaker(bind=engine)
     return Session()
-
-    
