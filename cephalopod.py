@@ -1,7 +1,7 @@
 from sync import update
 from dl import download
 from prune import prune_eps
-from stream import pretty_list
+import stream
 from config import load_config, test_config
 
 from argparse import ArgumentParser
@@ -34,7 +34,7 @@ list_parser.add_argument(
     type=int,
     default=list_age
 )
-list_parser.set_defaults(func=pretty_list)
+list_parser.set_defaults(func=stream.main)
 
 # download
 dl_parser = subparsers.add_parser('download')

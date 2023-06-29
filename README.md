@@ -20,6 +20,7 @@ remove episodes older than certain age
 
 ### todo
 
+- interactive options for stream mode
+- filter by podcast name
 - import/export opml
 - search and add rss feeds with podcastindex api
-- filter by podcast name
