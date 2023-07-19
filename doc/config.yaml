@@ -2,7 +2,7 @@
 general:
   podcast_directory: ~/Podcasts # directory to store podcasts
   download_age: 7 # age in days of podcasts to download
-  list_age: 7 # age in days of podcasts to list
+  stream_age: 7 # age in days of podcasts to list
   prune_age: 7 # remove podcasts older than this in days
   media_player: vlc
 
