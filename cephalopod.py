@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # CONFIG
 # try to read config file
 
