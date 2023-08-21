@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Podcast management CLI"
 keywords = ["podcast", "cli"]
-license = {text = "GPL"}
+license = {text = "GPL-3.0-only"}
 classifiers = [
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
