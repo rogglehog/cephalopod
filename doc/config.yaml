@@ -1,4 +1,6 @@
 ---
+# example config file
+# belongs at ~/.config/cephalopod/config.yaml
 general:
   podcast_directory: ~/Podcasts # directory to store podcasts
   download_age: 7 # age in days of podcasts to download
