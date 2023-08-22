@@ -1,0 +1,5 @@
+shell.nix
+__pycache__
+dist
+podge.egg-info
+

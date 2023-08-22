@@ -1,4 +1,4 @@
-## CLI podcast management tool written in python
+## CLI podcast management tool
 
 ### commands:
 
